@@ -1,0 +1,36 @@
+<section>
+    <div class="container mt-4">
+        <div class="row">
+
+            <div class="col-md-6">
+                <h2 class="text-center">Add Product</h2>
+                <form action="/admin/add-product" method="POST" enctype="multipart/form-data">
+                <!--make sure the form action attribute should be declared becase the data will go to that path where we mention 
+                    i make the method is post 
+                    this enctype is using for the server to upload image because or we have one image file also in the form. so will connect database that time the image file also we will upload so we have to make sure the  image file also uploaded so we give one attributes to form element 'enctype' is the attribute. when the file uploading case you should use this attribute -->
+                        <label for="">Name</label>
+                        <input type="text" name="Name" class="form-control">
+
+
+                        <label for="">Category</label>
+                        <input type="text" name="Category" class="form-control">
+
+                        <label for="">Price</label>
+                        <input type="text" name="Price" class="form-control">
+
+                        <label for="">Description</label>
+                        <input type="text" name="Description" class="form-control">
+
+                        <label for="">Image</label>
+                        <input type="file" name="Image" class="form-control">
+
+                        <button type="submit" class="btn btn-success mt-4">Submit</button>
+                        <!--after we press the submit button 
+                        i will make one fuction also in admin.js file  -->
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>

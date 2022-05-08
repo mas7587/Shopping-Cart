@@ -1,0 +1,26 @@
+<!--22th step create one login form (23rd in login.hbs) -->
+<div class="row">
+    <div class="col-md-6 m-auto">
+        <div class="container mt-5 pl-5">
+            <h2></h2>
+            <!--32th step now im going give a action and method to form( 33rd in user.js need one method for this form) -->
+            <form action="/login" method="post">
+                <!--44th step we will check the login is error or not (45th step in cart.hbs)-->
+                {{#if loginErr}}
+                <p class="error">{{loginErr}}</p>
+                {{/if}}
+                <div class="form-group">
+                    <label>Email address</label>
+                    <input type="email" class="form-control" name="Email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="Password" placeholder="Password">
+                </div>
+                <!--23rd create one a tag for signup and create a route  in user.js and create one signup form in user/signup.hbs (24th in signup.hbs)-->
+                <a href="/signup">Create new account</a>
+                <button type="submit" class="btn btn-primary float-right ">Login</button>
+            </form>
+        </div>
+    </div>
+</div>

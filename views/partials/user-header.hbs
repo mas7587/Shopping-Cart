@@ -1,0 +1,55 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <!--Assign home button for shopping cart -->
+        <a class="navbar-brand" href="/">Shopping Cart</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">products <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <!--48th step when the cart is clicked(49th step in user.js) -->
+                     <!--TODO:85 Add to cart- Assign badge for cart from bootstrap badge-->
+                     <!--TODO:89 Add to cart- pass the cartCount function here to display for the user to view the cart counting-->
+                     <!--TODO:94 Add to cart- create id for span cartCount -->
+                    <a class="nav-link" href="/cart">Cart<span class="badge badge-success" id="cart-count">{{cartCount}}</span></a>
+                </li>
+                <!--42th step if the user not loggedIn we will not show the 'orders' in the navbar (43rd in user.js) -->
+                {{#if user}}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Orders</a>
+                </li>
+                {{/if}}
+
+            </ul>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <!--38th step when the user logged in that time we need his name on here instead of "Account" (38.1th in user-header.js) -->
+                    {{#if user}}
+                    {{user.Name}}
+                    {{else}}
+                    Account
+                    {{/if}}
+
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <!--38.1th step (39th step ) -->
+                    {{#if user}}
+                    <!--39th step<a          href="/logout">Logout</a> i will make route for this logut in user.js (40th step in user.js) -->
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                    {{else}}
+                    <a class="dropdown-item" href="/login">Login</a>
+                    {{/if}}
+                </div>
+            </div>
+            <!--20th  "<a class="dropdown-item" href="/login">Login</a> "step href="/login" when you call this login should  create one method in user.js file (21th in user.js )
+             i move this(29th step) a tag from here to 38.1th step -->
+        </div>
+    </nav>
+</header>

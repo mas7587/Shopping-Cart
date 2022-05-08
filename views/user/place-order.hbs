@@ -1,0 +1,140 @@
+<section>
+    <!--TODO:107 Total price of Cart- place order form  -->
+    <div class="container mt-5">
+        <form action="" id="checkout-form">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Enter delivery Details</h2><br>
+                    <div>
+                        <label for="">Address</label>
+                        <input type="text" class="form-control" id="address" name="address">
+
+                        <label for="">Pincode</label>
+                        <input type="text" class="form-control" id="pincode" name="pincode">
+
+                        <label for="">Mobile</label>
+                        <input type="text" class="form-control" id="mobile" name="mobile">
+                        <!--TODO:120 Check out- take user data --->
+                        <input type="text" name="userId" id="" value="{{user._id}}" hidden>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="container mt-5 ml-5 checkout">
+                        <!--TODO:111 Total price of Cart- pass the total here  -->
+                        <h5>Total Amount : Rs. {{total}}</h5>
+                        <hr>
+                        <div class="payment">
+                            <p>Payment method</p>
+                            <label for="radio-inline">
+                                <input type="radio" name="payment-method" value="COD" checked>COD
+                            </label>
+                            <label for="radio-inline mt-2">
+                                <input type="radio" name="payment-method" value="ONLINE">Online payment
+                            </label>
+                            <button class="btn btn-primary float-right" type="submit">Check Out</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+</section>
+<!--TODO:118 Check out-Submit form using ajax-->
+
+
+<script>
+    $("#checkout-form").submit((e) => {
+        e.preventDefault()
+        $.ajax({
+            url: '/place-order',
+            method: 'post',
+            data: $('#checkout-form').serialize(),
+            success: (response) => {
+                alert(response)
+                if (response.codSuccess) {
+                    location.href = '/order-success'
+                } else {
+                    //TODO:136 Razorpay integration
+                    razorpayPayment(response)
+
+                }
+            }
+
+        })
+    })
+    //TODO:137 Razorpay integration- https://razorpay.com/docs/payments/server-integration/nodejs/payment-gateway/build-integration/#13-integrate-orders-api-on-server
+    function razorpayPayment(order) {
+        var options = {
+            "key": "rzp_test_UllmqDBCiFu27A", // Enter the Key ID generated from the Dashboard
+            "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Mas Solutions",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+
+                verifyPayment(response, order) //!create function for verifyPayment
+            },
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9999999999"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+
+    }
+
+    function verifyPayment(payment, order) {
+        $.ajax({
+            url: '/verify-payment',//set router for verify-payment
+            data: {
+                payment,
+                order
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
+                    location.href = '/order-success'
+                } else {
+                    alert("payment failed")
+                }
+            }
+        })
+    }
+</script>
+
+<style>
+    input[type=radio] {
+        width: 20px;
+        height: 20px;
+    }
+
+    label.radio-inline {
+        display: flex;
+        align-items: center;
+    }
+
+    .checkout {
+        border: 1px solid;
+        border-radius: 3px;
+        padding: 30px:
+    }
+
+    .payment {
+        padding-bottom: 16px;
+    }
+</style>

@@ -1,0 +1,47 @@
+<!--18th step i copied this content from index.hbs 
+    19th step download robomongo 
+    20th step is login page setup 20th in user-header.hbs
+    -->
+<section>
+    <div class="container mt-5">
+        <div class="row">
+            {{#each products}}
+            <div class="col-md-3 p-3">
+                <div class="card" style="width: 10rem; height: 20rem;">
+                    <img src="/product-images/{{this._id}}.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <!-- this.name will take name from index.js let product -->
+                        <h5 class="card-title">{{this.Name}}</h5>
+                         <p class="card-text">Rs.{{this.Price}}</p>
+                        <!-- this.let value(in the index.js file) will take value here -->
+                        <p class="card-text" style="font-size: 1%;">{{this.Description}}</p>
+                        <!--TODO:72 Add to cart-give action to a tag href  a href="/add-to-cart/{{this._id}}"-->
+                        <!-- i create one button insted of a tag  <a href="/add-to-cart/{{this._id}}" class="btn btn-primary">Add to Cart</a> -->
+                         <!--TODO:90 Add to cart-AJAX -->
+                         <button onclick="addToCart('{{this._id}}')" class="btn btn-success">Add to cart</button>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+
+        </div>
+    </div>
+</section>
+
+<!--TODO:91 Add to cart-function for addToCart AJAX
+
+now i got one error in webpage inspect consol its because we add jquery in after body.so we will create one function for this issue check todo92  
+so i will mve this function to javacript/script.js file
+<script>
+     function addToCart(proId){
+        $.ajax({
+            url:'/add-to-cart'+proId,
+            method:'get',
+            success:(response)=>{
+                alert(response)
+            }
+        })
+    } 
+
+</script>
+-->

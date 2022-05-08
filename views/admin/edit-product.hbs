@@ -1,0 +1,55 @@
+<!--TODO:57 Edit product step 1
+step 1 create one edit-product.hbs file.
+step 2 and copy content from add-product.hbs 
+step 3 now we need product id on view-product.hbs file-->
+<section>
+    <div class="container mt-4">
+        <div class="row">
+
+            <div class="col-md-6">
+                <h2 class="text-center">Edit product</h2>
+                <!--TODO:65 Edit product -when the user press submit button  new router for edit product now we need. check todo66 -->
+                <form action="/admin/edit-product/{{product._id}}" method="post" enctype="multipart/form-data">
+                <!--make sure the form action attribute should be declared becase the data will go to that path where we mention 
+                    i make the method is post 
+                    this enctype is using for the server to upload image because or we have one image file also in the form. so will connect database that time the image file also we will upload so we have to make sure the  image file also uploaded so we give one attributes to form element 'enctype' is the attribute. when the file uploading case you should use this attribute -->
+                        <label for="">Name</label>
+                        <!--TODO:63 Edit product- pass the object ({{product.______}}) -->
+                        <input type="text" name="Name" class="form-control" value="{{product.Name}}">
+
+
+                        <label for="">Category</label>
+                        <input type="text" name="Category" class="form-control" value="{{product.Category}}">
+
+                        <label for="">Price</label>
+                        <input type="text" name="Price" class="form-control" value="{{product.Price}}">
+
+                        <label for="">Description</label>
+                        <input type="text" name="Description" class="form-control" value="{{product.Description}}">
+
+                        <label for="">Image</label>
+                        <!--TODO:64 Edit product- Image need image tag  -->
+                        <!--TODO:69 Edit product- Show choosed file in the image tag(step 1 for todo 69 -give one id to img tag) -->
+                        <img src="/product-images/{{product._id}}.jpg" alt="" style="width: 100px;height:auto" class="pt-3" id="imgView">
+                        <!-- 2nd step for todo69 give "onchange"-->
+                        <input type="file" name="Image" class="form-control" onchange="viewImage(event)">
+
+                        <button type="submit" class="btn btn-success mt-4">Submit</button>
+                        <!--after we press the submit button 
+                        i will make one fuction also in admin.js file  -->
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!--TODO:70 Edit product- show choosed file on the img tag
+step 3 todo70 create one function-->
+
+<script>
+    function viewImage(event){
+        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+    }
+</script>
